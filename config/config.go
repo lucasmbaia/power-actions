@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 	"strconv"
+	"strings"
 
 	"github.com/lucasmbaia/power-actions/core/github"
 	"github.com/lucasmbaia/power-actions/core/openai"
@@ -44,7 +45,7 @@ func LoadSingletons() {
 	EnvSingletons.GithubClient = github.NewClient(os.Getenv("GITHUB_TOKEN"))
 
 	EnvConfig.GithubRepoOwner = os.Getenv("GITHUB_OWNER")
-	EnvConfig.GithubRepoName = os.Getenv("GITHUB_REPO")
+	EnvConfig.GithubRepoName = strings.Replace(os.Getenv("GITHUB_REPO"), fmt.Sprintf("%s/", EnvConfig.GithubRepoOwner), "", -1)
 	EnvConfig.OpenaiModel = os.Getenv("OPENAI_MODEL")
 	if EnvConfig.GithubPrNumber, err = strconv.Atoi(os.Getenv("GITHUB_PR_NUMBER")); err != nil {
 		log.Fatal(err)
