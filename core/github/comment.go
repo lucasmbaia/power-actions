@@ -27,7 +27,7 @@ func (c *Client) PullRequestReview(prr PullRequestReviewRequest) (err error) {
 
 	for _, value := range prr.Reviews.Review {
 		comments = append(comments, &gogithub.DraftReviewComment{
-			Path:     gogithub.String(".github/workflows/invoke-go-script-on-tag.yml"),
+			Path:     gogithub.String(value.File),
 			Position: gogithub.Int(value.LineNumber),
 			Body:     gogithub.String(value.ReviewComment),
 		})

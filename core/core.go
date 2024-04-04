@@ -27,13 +27,13 @@ func Run(diffPath string) (err error) {
 			return e
 		}
 
-		if !info.IsDir() {
+		if !info.IsDir() && strings.Contains(info.Name(), ".diff") {
 			var b []byte
 			if b, e = os.ReadFile(path); e != nil {
 				return e
 			}
 
-			content[info.Name()] = b
+			content[strings.Replace(info.Name(), ".diff", "", -1)] = b
 		}
 
 		return nil
