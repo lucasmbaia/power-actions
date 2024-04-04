@@ -1,6 +1,8 @@
 package github
 
 import (
+	"strings"
+
 	gogithub "github.com/google/go-github/v33/github"
 )
 
@@ -27,7 +29,7 @@ func (c *Client) PullRequestReview(prr PullRequestReviewRequest) (err error) {
 
 	for _, value := range prr.Reviews.Review {
 		comments = append(comments, &gogithub.DraftReviewComment{
-			Path:     gogithub.String(value.File),
+			Path:     gogithub.String(strings.Replace(value.File, "_", "/", -1)),
 			Position: gogithub.Int(value.LineNumber),
 			Body:     gogithub.String(value.ReviewComment),
 		})
