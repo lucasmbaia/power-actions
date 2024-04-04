@@ -6,7 +6,6 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/lucasmbaia/power-actions/config"
 	"github.com/lucasmbaia/power-actions/core/github"
 	"github.com/lucasmbaia/power-actions/core/openai"
 )
@@ -51,6 +50,6 @@ func LoadSingletons() {
 		log.Fatal(err)
 	}
 
-	fmt.Println("*********** CONFIG ****************")
-	fmt.Println(config.EnvConfig)
+	fmt.Println("********* CONFIG ***********")
+	fmt.Println(EnvConfig)
 }
