@@ -1,10 +1,12 @@
 package config
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"strconv"
 
+	"github.com/lucasmbaia/power-actions/config"
 	"github.com/lucasmbaia/power-actions/core/github"
 	"github.com/lucasmbaia/power-actions/core/openai"
 )
@@ -48,4 +50,7 @@ func LoadSingletons() {
 	if EnvConfig.GithubPrNumber, err = strconv.Atoi(os.Getenv("GITHUB_PR_NUMBER")); err != nil {
 		log.Fatal(err)
 	}
+
+	fmt.Println("*********** CONFIG ****************")
+	fmt.Println(config.EnvConfig)
 }
