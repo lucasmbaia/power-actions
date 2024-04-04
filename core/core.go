@@ -33,7 +33,9 @@ func Run(diffPath string) (err error) {
 				return e
 			}
 
-			content[strings.Replace(info.Name(), ".diff", "", -1)] = b
+			var filename = strings.Replace(info.Name(), ".diff", "", -1)
+			filename = strings.Replace(filename, "_", "/", -1)
+			content[filename] = b
 		}
 
 		return nil
