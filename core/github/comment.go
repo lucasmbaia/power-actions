@@ -1,6 +1,8 @@
 package github
 
 import (
+	"fmt"
+
 	gogithub "github.com/google/go-github/v33/github"
 )
 
@@ -31,9 +33,12 @@ func (c *Client) PullRequestReview(prr PullRequestReviewRequest) (err error) {
 			Position: gogithub.Int(value.LineNumber),
 			Body:     gogithub.String(value.ReviewComment),
 		})
+
+		fmt.Println(value.File)
+		fmt.Println(value.LineNumber)
+		fmt.Println(value.ReviewComment)
 	}
 
-	print(comments)
 	var review = &gogithub.PullRequestReviewRequest{
 		Body:     gogithub.String(prr.Comment),
 		Event:    gogithub.String("COMMENT"),

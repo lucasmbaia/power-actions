@@ -69,6 +69,7 @@ func Run(diffPath string) (err error) {
 		return
 	}
 
+	fmt.Println("CARALHOOOOPOO")
 	if len(reviews.Review) > 0 {
 		err = config.EnvSingletons.GithubClient.PullRequestReview(github.PullRequestReviewRequest{
 			Comment:  "While reviewing the proposed modifications, I identified some opportunities for improvement that can further enhance the quality of our project. I am available to discuss these suggestions and find the best solutions together.",
