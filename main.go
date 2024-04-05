@@ -1,9 +1,7 @@
 package main
 
 import (
-	"fmt"
 	"log"
-	"os"
 
 	"github.com/lucasmbaia/power-actions/config"
 	"github.com/lucasmbaia/power-actions/core"
@@ -14,18 +12,7 @@ func init() {
 }
 
 func main() {
-	var (
-		err      error
-		diffPath string
-	)
-
-	if len(os.Args) < 2 {
-		fmt.Println("Usage: go run script.go <diff_path>")
-		os.Exit(1)
-	}
-	diffPath = os.Args[1]
-
-	if err = core.Run(diffPath); err != nil {
+	if err := core.Run(); err != nil {
 		log.Fatalf("Error when running script: %s", err.Error())
 	}
 }
