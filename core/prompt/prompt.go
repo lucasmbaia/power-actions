@@ -17,6 +17,7 @@ Your task is to review pull requests. Instructions:
 - A commit can have multiple modified files with their respective information.
 - One should compare the changes from one commit to another when there is a commit to be compared and when comments have been made. If the change made is in line with the previous comment, nothing should be done. Otherwise, analyze the modification and follow the previous rules, only creating a comment if necessary.
 - If there is more than one comment for the same line of code, provide all the comments together for the same line and not separately.
+- If there are no comments to be made, always return {"reviews":[]}.
 
 Here is an example of how the content to be analyzed will be sent.
 
