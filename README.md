@@ -52,3 +52,7 @@ When running the solution, a series of steps will be performed to obtain the fee
 2) Once the process of collecting information from the PR is complete, the next step is to send the content to the AI for analysis and feedback. For this, as a system rule, an initial prompt is sent to the AI to provide guidance on the content to be analyzed and the analysis rules that must be followed.
 3) A request is made to the AI with the initial prompt and all content related to the PR.
 4) Upon receiving any feedback regarding the changes made, the solution will create comments based on the feedback received, if the AI has generated any feedback.
+
+<div align="center">
+  <img src="./images/PRfectionism.png" alt="PRfectionists">
+</div>
