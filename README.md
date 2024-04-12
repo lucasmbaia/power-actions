@@ -1,11 +1,9 @@
-# power-actions
+# PRfectionists
 
 The main goal of this project is to provide a solution that adds value to the review of open Pull Requests (PRs). Currently, PR reviews take up a significant amount of time, and the application of artificial intelligence (AI) can enhance the efficiency of this process, as well as suggest improvements that are sometimes overlooked. There are several tools already on the market that fulfill this purpose. However, as I mentioned earlier, our intention is not to compete with enterprise solutions, but rather to develop a feature that allows us to learn and generate valuable insights.
 
 ## Setup
 
-
-ChatGPT
 The main focus of the solution is to provide feedback on the modifications made within a PR. To use the solution, you must have an OpenAI token. If you do not have a token, you need to obtain one before using the solution.
 
 1) Add the OpenAI token as secrets in your project with the name OPENAI_TOKEN.
