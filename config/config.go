@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"strconv"
 	"strings"
 
 	"github.com/lucasmbaia/power-actions/core/github"
@@ -32,9 +31,9 @@ type Config struct {
 func LoadSingletons() {
 	var err error
 
-	if os.Getenv("GITHUB_TOKEN") == "" {
-		log.Fatalf("It's mandatory set a github token in GITHUB_TOKEN environment variable")
-	}
+	//if os.Getenv("GITHUB_TOKEN") == "" {
+	//	log.Fatalf("It's mandatory set a github token in GITHUB_TOKEN environment variable")
+	//}
 
 	if EnvSingletons.OpenaiClient, err = openai.NewClient(openai.Config{
 		Key: os.Getenv("OPENAI_TOKEN"),
@@ -47,9 +46,9 @@ func LoadSingletons() {
 	EnvConfig.GithubRepoOwner = os.Getenv("GITHUB_OWNER")
 	EnvConfig.GithubRepoName = strings.Replace(os.Getenv("GITHUB_REPO"), fmt.Sprintf("%s/", EnvConfig.GithubRepoOwner), "", -1)
 	EnvConfig.OpenaiModel = os.Getenv("OPENAI_MODEL")
-	if EnvConfig.GithubPrNumber, err = strconv.Atoi(os.Getenv("GITHUB_PR_NUMBER")); err != nil {
-		log.Fatal(err)
-	}
+	//if EnvConfig.GithubPrNumber, err = strconv.Atoi(os.Getenv("GITHUB_PR_NUMBER")); err != nil {
+	//	log.Fatal(err)
+	//}
 
 	fmt.Println("********* CONFIG ***********")
 	fmt.Println(EnvConfig)
