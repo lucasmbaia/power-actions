@@ -74,6 +74,11 @@ func (c *Client) GetPullRequestChanges(prr PullRequestReviewRequest) (contentPul
 		contentPullRequest += fmt.Sprintf("%s\nCommitID: %s\n", prompt.BEGIN_CONTENT, *commit.SHA)
 
 		for _, file := range commitInfos.Files {
+
+			if (*file.Additions + *file.Deletions + *file.Changes) > 500 {
+				continue
+			}
+
 			contentPullRequest += fmt.Sprintf("Filename: %s\nAdditions: %d\nDeletions: %d\nChanges: %d\nStatus: %s\nContent: %s\n", *file.Filename, *file.Additions, *file.Deletions, *file.Changes, *file.Status, *file.Patch)
 			for _, comment := range comments {
 				var prComments string
