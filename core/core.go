@@ -30,6 +30,7 @@ func Run() (err error) {
 		return
 	}
 
+	fmt.Println(contentPullRequest)
 	chatCompletion = openai.ChatCompletionRequest{
 		Model: config.EnvConfig.OpenaiModel,
 		Messages: []openai.ChatMessages{{
