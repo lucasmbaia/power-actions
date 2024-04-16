@@ -18,11 +18,12 @@ type Review struct {
 }
 
 type PullRequestReviewRequest struct {
-	Comment  string
-	Owner    string
-	Repo     string
-	PrNumber int
-	Reviews  Reviews
+	Comment         string
+	Owner           string
+	Repo            string
+	PrNumber        int
+	Reviews         Reviews
+	MaxChangedLines int
 }
 
 func (c *Client) PullRequestReview(prr PullRequestReviewRequest) (err error) {
@@ -75,7 +76,7 @@ func (c *Client) GetPullRequestChanges(prr PullRequestReviewRequest) (contentPul
 
 		for _, file := range commitInfos.Files {
 
-			if (*file.Additions + *file.Deletions + *file.Changes) > 500 {
+			if (*file.Additions + *file.Deletions + *file.Changes) > prr.MaxChangedLines {
 				continue
 			}
 
