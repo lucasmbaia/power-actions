@@ -26,7 +26,8 @@ type Config struct {
 	GithubRepoName  string
 	GithubPrNumber  int
 
-	OpenaiModel string
+	MaxChangedLines int
+	OpenaiModel     string
 }
 
 func LoadSingletons() {
@@ -42,6 +43,13 @@ func LoadSingletons() {
 		log.Fatalf("Error to initiate openai client: %s", err.Error())
 	}
 
+	if EnvConfig.MaxChangedLines, err = getUnsignedIntEnv("MAX_CHANGED_LINES", 500); EnvConfig.MaxChangedLines <= 0 || err != nil {
+		if EnvConfig.MaxChangedLines <= 0 {
+			log.Fatalf("MAX_CHANGED_LINES need to be a positive integer")
+		}
+		log.Fatal(err)
+	}
+
 	EnvSingletons.GithubClient = github.NewClient(os.Getenv("GITHUB_TOKEN"))
 
 	EnvConfig.GithubRepoOwner = os.Getenv("GITHUB_OWNER")
@@ -53,4 +61,20 @@ func LoadSingletons() {
 
 	fmt.Println("********* CONFIG ***********")
 	fmt.Println(EnvConfig)
+}
+
+func getUnsignedIntEnv(varName string, defaultValue int) (int, error) {
+	// Retrieve the value of the environment variable
+	valueStr := os.Getenv(varName)
+	if valueStr == "" {
+		return defaultValue, nil
+	}
+
+	// Attempt to convert the string to an integer
+	value, err := strconv.Atoi(valueStr)
+	if err != nil {
+		return 0, fmt.Errorf("environment variable %s is not a valid integer: %v", varName, err)
+	}
+
+	return value, nil
 }

@@ -21,9 +21,10 @@ func Run() (err error) {
 	)
 
 	prr = github.PullRequestReviewRequest{
-		Owner:    config.EnvConfig.GithubRepoOwner,
-		Repo:     config.EnvConfig.GithubRepoName,
-		PrNumber: config.EnvConfig.GithubPrNumber,
+		Owner:           config.EnvConfig.GithubRepoOwner,
+		Repo:            config.EnvConfig.GithubRepoName,
+		PrNumber:        config.EnvConfig.GithubPrNumber,
+		MaxChangedLines: config.EnvConfig.MaxChangedLines,
 	}
 
 	if contentPullRequest, err = config.EnvSingletons.GithubClient.GetPullRequestChanges(prr); err != nil {
