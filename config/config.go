@@ -33,15 +33,18 @@ type Config struct {
 func LoadSingletons() {
 	var err error
 
-	if os.Getenv("GITHUB_TOKEN") == "" {
-		log.Fatalf("It's mandatory set a github token in GITHUB_TOKEN environment variable")
-	}
-
 	if EnvSingletons.OpenaiClient, err = openai.NewClient(openai.Config{
 		Key: os.Getenv("OPENAI_TOKEN"),
 	}); err != nil {
 		log.Fatalf("Error to initiate openai client: %s", err.Error())
 	}
+
+	EnvSingletons.GithubClient = github.NewClient(os.Getenv("GITHUB_TOKEN"))
+
+	EnvConfig.GithubRepoOwner = os.Getenv("GITHUB_OWNER")
+	EnvConfig.GithubRepoName = strings.Replace(os.Getenv("GITHUB_REPO"), fmt.Sprintf("%s/", EnvConfig.GithubRepoOwner), "", -1)
+	EnvConfig.OpenaiModel = os.Getenv("OPENAI_MODEL")
+	EnvConfig.MaxChangedLines = 500
 
 	if EnvConfig.MaxChangedLines, err = getUnsignedIntEnv("MAX_CHANGED_LINES", 500); EnvConfig.MaxChangedLines <= 0 || err != nil {
 		if EnvConfig.MaxChangedLines <= 0 {
@@ -50,17 +53,9 @@ func LoadSingletons() {
 		log.Fatal(err)
 	}
 
-	EnvSingletons.GithubClient = github.NewClient(os.Getenv("GITHUB_TOKEN"))
-
-	EnvConfig.GithubRepoOwner = os.Getenv("GITHUB_OWNER")
-	EnvConfig.GithubRepoName = strings.Replace(os.Getenv("GITHUB_REPO"), fmt.Sprintf("%s/", EnvConfig.GithubRepoOwner), "", -1)
-	EnvConfig.OpenaiModel = os.Getenv("OPENAI_MODEL")
 	if EnvConfig.GithubPrNumber, err = strconv.Atoi(os.Getenv("GITHUB_PR_NUMBER")); err != nil {
 		log.Fatal(err)
 	}
-
-	fmt.Println("********* CONFIG ***********")
-	fmt.Println(EnvConfig)
 }
 
 func getUnsignedIntEnv(varName string, defaultValue int) (int, error) {

@@ -2,7 +2,6 @@ package core
 
 import (
 	"encoding/json"
-	"fmt"
 	"strings"
 
 	"github.com/lucasmbaia/power-actions/config"
@@ -31,7 +30,6 @@ func Run() (err error) {
 		return
 	}
 
-	fmt.Println(contentPullRequest)
 	chatCompletion = openai.ChatCompletionRequest{
 		Model: config.EnvConfig.OpenaiModel,
 		Messages: []openai.ChatMessages{{
@@ -41,6 +39,7 @@ func Run() (err error) {
 			Role:    "user",
 			Content: contentPullRequest,
 		}},
+		Temperature: 0.5,
 	}
 
 	if chatResponse, err = config.EnvSingletons.OpenaiClient.CreateChatCompletion(chatCompletion); err != nil {
@@ -50,17 +49,18 @@ func Run() (err error) {
 	reviewStr := strings.Replace(chatResponse.Choices[0].Message.Content, "```json", "", 1)
 	reviewStr = strings.Replace(reviewStr, "```", "", 1)
 
-	fmt.Println(reviewStr)
 	if err = json.Unmarshal([]byte(reviewStr), &reviews); err != nil {
 		return
 	}
 
 	if len(reviews.Review) > 0 {
 		prr.Comment = "While reviewing the proposed modifications, I identified some opportunities for improvement that can further enhance the quality of our project. I am available to discuss these suggestions and find the best solutions together."
-		prr.Reviews = reviews
-		err = config.EnvSingletons.GithubClient.PullRequestReview(prr)
+	} else {
+		prr.Comment = "While reviewing the proposed modifications, I did not identify any improvements to be made. Good job."
 	}
 
-	fmt.Println(err)
+	prr.Reviews = reviews
+	err = config.EnvSingletons.GithubClient.PullRequestReview(prr)
+
 	return
 }

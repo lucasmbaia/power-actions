@@ -16,9 +16,10 @@ func Test_GetPullRequestChanges(t *testing.T) {
 	c = NewClient(os.Getenv("GITHUB_TOKEN"))
 
 	if content, err = c.GetPullRequestChanges(PullRequestReviewRequest{
-		Owner:    os.Getenv("GITHUB_OWNER"),
-		Repo:     os.Getenv("GITHUB_REPO"),
-		PrNumber: 6,
+		Owner:           os.Getenv("GITHUB_OWNER"),
+		Repo:            os.Getenv("GITHUB_REPO"),
+		PrNumber:        15,
+		MaxChangedLines: 500,
 	}); err != nil {
 		t.Fatal(err)
 	}

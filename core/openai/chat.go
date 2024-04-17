@@ -18,8 +18,9 @@ type ErrorMessage struct {
 }
 
 type ChatCompletionRequest struct {
-	Model    string         `json:"model"`
-	Messages []ChatMessages `json:"messages"`
+	Model       string         `json:"model"`
+	Messages    []ChatMessages `json:"messages"`
+	Temperature float32        `json:"temperature"`
 }
 
 type ChatMessages struct {

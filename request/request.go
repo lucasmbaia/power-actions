@@ -5,7 +5,6 @@ import (
 	"context"
 	"crypto/tls"
 	"encoding/json"
-	"fmt"
 	"io"
 	"net/http"
 	"net/http/cookiejar"
@@ -110,7 +109,6 @@ func (c *Client) Request(method, path string, o Options) (r Response, err error)
 				return
 			}
 
-			fmt.Println(string(body))
 			pb = bytes.NewReader(body)
 		}
 	}
