@@ -19,10 +19,40 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-package main
+package cmd
 
-import "github.com/lucasmbaia/power-actions/cmd"
+import (
+	"fmt"
 
-func main() {
-	cmd.Execute()
+	"github.com/lucasmbaia/power-actions/config"
+	"github.com/lucasmbaia/power-actions/core"
+	"github.com/spf13/cobra"
+)
+
+// reviewCmd represents the review command
+var reviewCmd = &cobra.Command{
+	Use:   "review",
+	Short: "Automate PR reviews on GitHub",
+	Run: func(cmd *cobra.Command, args []string) {
+		config.LoadSingletons()
+
+		err := core.Run()
+		if err != nil {
+			fmt.Printf("Error to review the PR: %s\n", err.Error())
+			return
+		}
+	},
+}
+
+func init() {
+	rootCmd.AddCommand(reviewCmd)
+	// Here you will define your flags and configuration settings.
+
+	// Cobra supports Persistent Flags which will work for this command
+	// and all subcommands, e.g.:
+	// reviewCmd.PersistentFlags().String("foo", "", "A help for foo")
+
+	// Cobra supports local flags which will only run when this command
+	// is called directly, e.g.:
+	// reviewCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
