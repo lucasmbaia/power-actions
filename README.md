@@ -30,7 +30,7 @@ jobs:
         fetch-depth: 0
                 
     - name: Invoke PR Review
-      run: go run main.go
+      run: go run main.go review
       working-directory: ./power-actions
       env:
         GITHUB_TOKEN: ${{ secrets.BOT_TOKEN }} # Github bot token
