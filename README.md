@@ -37,7 +37,7 @@ jobs:
         OPENAI_TOKEN: ${{ secrets.OPENAI_TOKEN }} # Openai Token
         GITHUB_OWNER: ${{ github.repository_owner }} # Name of reporitory's owner
         GITHUB_REPO: ${{ github.repository }} # Name of repository
-        OPENAI_MODEL: "gpt-4-1106-preview" # Model to use at OpenAI Chat
+        OPENAI_MODEL: "gpt-4-turbo" # Model to use at OpenAI Chat
         GITHUB_PR_NUMBER: ${{ github.event.pull_request.number }} #Number of PR
 ```
 
